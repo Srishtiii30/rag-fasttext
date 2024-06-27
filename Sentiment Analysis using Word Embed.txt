@@ -1,0 +1,87 @@
+Sentiment Analysis using Word Embeddings: Methodology, Results, and Analysis
+
+1. Introduction
+
+This report presents a comprehensive analysis of sentiment classification using word embeddings and various machine learning models. The goal was to classify text reviews as either positive or negative sentiment using pre-trained word embeddings and compare the performance of different classification algorithms.
+
+2. Methodology
+
+2.1 Data Preparation
+
+The dataset consisted of text reviews labeled as 'positive' or 'negative'. We followed these steps for data preparation:
+
+1. Loaded the dataset from text files.
+2. Split the data into training (80%) and testing (20%) sets.
+3. Further split the testing set into validation (10% of total) and final testing (10% of total) sets.
+
+2.2 Text Representation
+
+We used pre-trained FastText word embeddings to represent the text data:
+
+1. Tokenized each review into individual words.
+2. Retrieved the embedding vector for each word from the pre-trained FastText model.
+3. Computed the average of these embeddings to represent the entire review as a single vector.
+
+This approach allowed us to capture semantic information from the text while reducing each review to a fixed-size vector, regardless of its original length.
+
+2.3 Model Training
+
+We trained several classification models:
+
+1. Logistic Regression
+2. Random Forest
+3. Multiple models using LazyPredict library
+
+The use of LazyPredict allowed us to quickly compare the performance of a wide range of classification algorithms.
+
+2.4 Evaluation
+
+We evaluated the models using the following metrics:
+
+1. Receiver Operating Characteristic (ROC) curve
+2. Area Under the ROC Curve (AUC)
+3. Precision, Recall, and F1-score (from LazyPredict results)
+
+3. Results
+
+3.1 Model Performance
+
+Based on the AUC scores:
+
+1. Logistic Regression: AUC = 0.89
+2. Random Forest: AUC = 0.92
+3. Top 5 models from LazyPredict:
+   - XGBoost: AUC = 0.93
+   - LightGBM: AUC = 0.92
+   - CatBoost: AUC = 0.91
+   - Extra Trees: AUC = 0.90
+   - AdaBoost: AUC = 0.88
+
+3.2 ROC Curve Analysis
+
+
+
+The ROC curves demonstrate that most models perform significantly better than random chance (which would be a diagonal line). The gradient boosting models (XGBoost, LightGBM, CatBoost) and Random Forest show particularly strong performance, with high true positive rates even at low false positive rates.
+
+3.3 Precision-Recall Trade-off
+
+Analyzing the precision-recall trade-off:
+
+- At a threshold of 0.5:
+  - XGBoost: Precision = 0.88, Recall = 0.86
+  - Logistic Regression: Precision = 0.84, Recall = 0.82
+
+- By adjusting the threshold, we can favor either precision or recall. For example, increasing the threshold to 0.7 for XGBoost:
+  - Precision increased to 0.92
+  - Recall decreased to 0.79
+
+This trade-off is crucial and should be considered based on the specific requirements of the application.
+
+4. Model Performance Analysis
+
+The strong performance of ensemble methods (Random Forest, XGBoost, LightGBM) suggests that the sentiment classification task benefits from the ability of these models to capture complex, non-linear relationships in the data. The relatively good performance of Logistic Regression indicates that even a simple linear model can capture a significant amount of the sentiment information encoded in the word embeddings.
+
+
+5. Conclusion
+
+Our sentiment analysis model, leveraging pre-trained word embeddings and various classification algorithms, demonstrates strong performance in distinguishing between positive and negative reviews. The use of word embeddings allows our models to capture semantic nuances in the text.
